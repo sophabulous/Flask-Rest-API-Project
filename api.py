@@ -35,7 +35,6 @@ def get_product(id):
 
 
 def product_is_valid(product):
-    print(products)
     # Checks if the payload has all the required fields
     if not set(product.keys()).issubset(required_keys):
         return False
