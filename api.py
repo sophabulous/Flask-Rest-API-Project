@@ -9,6 +9,8 @@ products = [
     {'id': 3, 'name': 'Coffee beans', 'category': 'beverage', 'quantity': 0}
 ]
 
+required_keys = {"id", "category", "name", "quantity"}
+
 nextProductId = 4
 
 @app.route('/')
@@ -33,9 +35,13 @@ def get_product(id):
 
 
 def product_is_valid(product):
-    for key in product.keys():
-        if key != 'name':
-            return False
+    print(products)
+    # Checks if the payload has all the required fields
+    if not set(product.keys()).issubset(required_keys):
+        return False
+    # Checks if the product already exists in the inventory
+    elif any(product["name"] == p["name"] for p in products):
+        return False
     return True
 
 
@@ -50,7 +56,7 @@ def create_product():
     nextProductId += 1
     products.append(product)
 
-    return '', 201, {'location': f'/products/{product["id"]}'}
+    return jsonify(product), 201
 
 
 @app.route('/products/<int:id>', methods=['PUT'])
