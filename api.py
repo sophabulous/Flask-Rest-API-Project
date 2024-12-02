@@ -38,9 +38,6 @@ def product_is_valid(product):
     # Checks if the payload has all the required fields
     if not set(product.keys()).issubset(required_keys):
         return False
-    # Checks if the product already exists in the inventory
-    elif any(product["name"] == p["name"] for p in products):
-        return False
     return True
 
 
@@ -48,7 +45,7 @@ def product_is_valid(product):
 def create_product():
     global nextProductId
     product = json.loads(request.data)
-    if not product_is_valid(product):
+    if not product_is_valid(product) or any(product["name"] == p["name"] for p in products):
         return jsonify({'error': 'Invalid product properties.'}), 400
 
     product['id'] = nextProductId
