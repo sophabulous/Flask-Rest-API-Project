@@ -1,7 +1,5 @@
-import json
-from flask import Flask, jsonify, request, render_template
-
-app = Flask(__name__)
+from flask import render_template, session, request, redirect, url_for, jsonify
+from shop import app, db
 
 products = [
     {'id': 1, 'name': 'Cucumbers', 'category': 'vegetable', 'quantity': 40},
@@ -15,7 +13,7 @@ nextProductId = 4
 
 @app.route('/')
 def home():
-    return render_template("home.html", data=products)
+    return render_template('home.html', title="Healthy Bites")
 
 @app.route('/products', methods=['GET'])
 def get_products():
@@ -79,6 +77,3 @@ def delete_product(id: int):
 
     products = [e for e in products if e['id'] != id]
     return jsonify(product), 200
-
-if __name__ == '__main__':
-    app.run(port=5000)
