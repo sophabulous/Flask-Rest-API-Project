@@ -71,7 +71,7 @@ def addproduct():
     form = Addproducts(request.form)
     brands = Brand.query.all()
     categories = Category.query.all()
-    if request.method == "POST" and 'image' in request.files:
+    if request.method == "POST" and 'image_1' in request.files:
         name = form.name.data
         price = form.price.data
         discount = form.discount.data
@@ -83,12 +83,28 @@ def addproduct():
         # Debug: Check files, brand, and category
         print(request.files)
         try:
-            image_1 = photos.save(request.files.get('image_1'), name=secrets.token_hex(10) + ".")
-            image_2 = photos.save(request.files.get('image_2'), name=secrets.token_hex(10) + ".")
-            image_3 = photos.save(request.files.get('image_3'), name=secrets.token_hex(10) + ".")
+            file_1 = request.files.get('image_1')
+            file_2 = request.files.get('image_2')
+            file_3 = request.files.get('image_3')
+
+            image_1 = photos.save(file_1, name=secrets.token_hex(10) + ".")
+
+            # Validate and save image_2 (optional)
+            if file_2 and photos.file_allowed(file_2, file_2.filename):
+                image_2 = photos.save(file_2, name=secrets.token_hex(10) + ".")
+            else:
+                image_2 = None  # Default to None if no file is uploaded
+
+            # Validate and save image_3 (optional)
+            if file_3 and photos.file_allowed(file_3, file_3.filename):
+                image_3 = photos.save(file_3, name=secrets.token_hex(10) + ".")
+            else:
+                image_3 = None  # Default to None if no file is uploaded
+
         except Exception as e:
-            flash(f'photo was not saved!', 'failure')
+            flash(f"Error saving files: {str(e)}", "danger")
             return redirect(url_for('addproduct'))
+
         product = Product(name=name,price=price,discount=discount,stock=stock,colors=colors,desc=desc,
                              category_id=category,brand_id=brand,image_1=image_1,image_2=image_2,image_3=image_3)
         db.session.add(product)
