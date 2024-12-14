@@ -1,5 +1,5 @@
 Flask==3.1.0
-flask_sqlalchemy==3.1.1
+flask_sqlalchemy>=3.0.5
 flask_uploads==0.2.1
 flask_wtf==1.2.2
 WTForms==3.2.1
