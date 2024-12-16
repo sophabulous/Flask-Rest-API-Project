@@ -13,6 +13,8 @@ Flask App for a grocery store called "Healthy Bites".
 
 **Product details page**: Displays all the details related to a specific product
 
+**Shopping cart page**: Displays all the products in the shopping cart and the options to update or delete items
+
 **It supports the following functions:**
 
 Brand: 
@@ -28,5 +30,12 @@ Category:
 Product:
 - `/addproduct`
 - `/deleteproduct/<int:id>`
+
+Cart:
+- `/cart`
+- `/addtocart`
+- `/updatecart/<int:code>`
+- `/deleteitem/<int:id>`
+- `/clearcart`
 
 
