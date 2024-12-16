@@ -9,11 +9,11 @@ Flask App for a grocery store called "Healthy Bites".
 * Filter by brand
   * Click on an item in the Brand dropdown menu from the navbar, and it will show all the products of that brand
 * Filter by category
-  * Click on an item in the Brand dropdown menu from the navbar, and it will show all the products of that brand
+  * Click on an item in the Category dropdown menu from the navbar, and it will show all the products of that brand
 
 **Product details page**: Displays all the details related to a specific product
 
-It supports the following functions:
+**It supports the following functions:**
 
 Brand: 
 - `/addbrand`
