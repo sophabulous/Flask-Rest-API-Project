@@ -20,5 +20,4 @@ patch_request_class(app)
 db = SQLAlchemy(app)
 
 # Import routes to register them
-from shop import routes
 from shop.products import routes
