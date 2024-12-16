@@ -21,3 +21,4 @@ db = SQLAlchemy(app)
 
 # Import routes to register them
 from shop.products import routes
+from shop.cart import cart

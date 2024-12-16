@@ -26,7 +26,7 @@ def details_page(id):
 @app.route('/brand/<int:id>')
 def brand(id):
     p_by_brand = Product.query.filter_by(brand_id=id).all()
-    return render_template('products/index.html', p_by_brand=p_by_brand, brands=brands())
+    return render_template('products/index.html', p_by_brand=p_by_brand, brands=brands(), categories=categories())
 
 @app.route('/category/<int:id>')
 def get_category(id):
@@ -47,7 +47,7 @@ def add_brand():
     return render_template('products/add_brand.html', brands="products")
 
 @app.route('/updatebrand/<int:id>',methods=['GET','POST'])
-def updatebrand(id):
+def update_brand(id):
     # if 'email' not in session:
     #     flash('Login first please','danger')
     #     return redirect(url_for('login'))
@@ -150,7 +150,7 @@ def add_product():
     return render_template('products/add_product.html', form=form, title='Add a Product', brands=brands,
                            categories=categories)
 @app.route('/deleteproduct/<int:id>', methods=['POST'])
-def deleteproduct(id):
+def delete_product(id):
     product = Product.query.get_or_404(id)
     if request.method =="POST":
         try:
